@@ -19,6 +19,26 @@ def account(username):
         <h2>Welcome {username} to your profile</h2>
         '''
 
+@app.route('/product')
+def product():
+    #Récupération des paramètres via l'URL
+    _marque=request.args.get('marque')
+    _type=request.args.get('type')
+    _nom=request.args.get('nom')
+
+    #Récupération du headers de la requête
+    #Attention: L'attribut Sec-Ch-Ua est valable sur Chrome
+    header = request.headers.get('Sec-Ch-Ua')
+    info = header.split(';')
+    browser_info= info[0]+' '+info[1]
+
+    return f'''<h1>Vous avez choisi le produit : {_nom} de type {_type} et de marque {_marque} </h1>
+            <h5>Vous utilisez le navigateur {browser_info}
+            '''
+
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 
