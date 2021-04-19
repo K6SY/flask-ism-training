@@ -1,25 +1,26 @@
-* Préparation de l'environnement
+# Préparation de l'environnement
 
+1. Supprimer le dossier .env
 
-1. Activation de l'evironnement virtuel
+2. Recréer l'environnement virtuel : 
+    *`python -m venv environment_name`*
+
+3. Activation de l'evironnement virtuel
  
     1. **Windows cmd**
-
         *`.\environment_name\Scripts\activate.bat`*
 
     2. **Windows Powershell**
-
         *`.\environment_name\Scripts\Activate.ps1`*
 
         NB: Powershell bloque par défaut l'execution de scripts. Pour autoriser l'execution des scripts:
             * Executer powershell en tant qu'Administrateur 
             * Taper puis valider la commande suivante : *`Set-ExecutionPolicy RemoteSigned`*
-
     3. **Linux / Mac Terminal**
 
         *`source environment_name/bin/activate`*
 
-Usage of dynamic routes
+# Usage of dynamic routes
 
 1. start the flask light server: python app.py
 

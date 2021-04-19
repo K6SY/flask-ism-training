@@ -10,7 +10,6 @@ Exemple: /<username>/<token>
 Dans l'exemple ci-dessous, nous avons deux extraits: username et token. Chacun de ces extraits doivent en plus
 être passé comme paramètre à la view fonction.
 
-Ne pas oublier de passer l
 '''
 
 @app.route('/account/<username>')
@@ -19,7 +18,6 @@ def account(username):
         <h1>My first page on flask</h1>
         <h2>Welcome {username} to your profile</h2>
         '''
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
