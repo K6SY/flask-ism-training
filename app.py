@@ -1,5 +1,5 @@
 #Importation de la classe Flask du module flask
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 #Instanciation d'un objet de la classe Flask. Cet objet est très utile pour la suite.
 app = Flask(__name__)
@@ -19,7 +19,12 @@ def account(username):
         <h2>Welcome {username} to your profile</h2>
         '''
 
-@app.route('/product')
+'''
+# Usage des paramètres passés au niveau de l'URL
+# Usage de render_template pour renvoyer une vue
+# Extraction des données du header 
+'''
+@app.route('/product/info')
 def product():
     #Récupération des paramètres via l'URL
     _marque=request.args.get('marque')
@@ -28,13 +33,11 @@ def product():
 
     #Récupération du headers de la requête
     #Attention: L'attribut Sec-Ch-Ua est valable sur Chrome
-    header = request.headers.get('Sec-Ch-Ua')
-    info = header.split(';')
-    browser_info= info[0]+' '+info[1]
+    #header = request.headers.get('Sec-Ch-Ua')
+    #info = header.split(';')
+    #browser_info= info[0]+' '+info[1]
 
-    return f'''<h1>Vous avez choisi le produit : {_nom} de type {_type} et de marque {_marque} </h1>
-            <h5>Vous utilisez le navigateur {browser_info}
-            '''
+    return render_template('gestion_stock/produit/info.html')
 
 
 
