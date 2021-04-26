@@ -20,6 +20,9 @@
 
         *`source environment_name/bin/activate`*
 
+4. Installer les requirements
+    *`pip install -r requirement.txt`*
+
 # Templating
 
 ## Création des vues
