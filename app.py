@@ -1,8 +1,15 @@
 #Importation de la classe Flask du module flask
 from flask import Flask, request, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 #Instanciation d'un objet de la classe Flask. Cet objet est très utile pour la suite.
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Soroc2022@localhost/emarket'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+db = SQLAlchemy(app)
+
+
+
 
 '''
 Les routes dynamiques sont ajoutés au niveau de l'URI et contiennent des extraits placer entre <>.
@@ -40,8 +47,42 @@ def product():
     return render_template('gestion_stock/produit/info.html')
 
 
+@app.route('/')
+def accueil():
+    return render_template('accueil.html')
+
+
+
+class Produit(db.Model):
+    __tablename__ = 'produits'
+    id = db.Column(db.Integer, primary_key=True)
+    nom = db.Column(db.String(100), unique=True)
+    description = db.Column(db.Text, nullable=True)
+
+
+class Categorie(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key=True)
+    nom = db.Column(db.String(100), unique=True)
+    description = db.Column(db.Text, nullable=True)
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=18000, debug=True)
 

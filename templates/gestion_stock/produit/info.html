@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
+{% block navAuthentication %}
+    <li class="nav-item">
+        <a class="nav-link" href="#">Gestion Stock</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Interface Vente</a>
+    </li>
+{% endblock %}
+
 {% block content%}
-    {{ super() }}
     <h4>Ceci a remplacé le gros paragraphe</h4>
 {% endblock %}
