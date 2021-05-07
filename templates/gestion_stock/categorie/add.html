@@ -21,11 +21,19 @@
     </div>
     <div class="col-md-6">
         {% if items %}
-            <ul>
-                <li>Nom {{ items[0]}}</li>
-                <li>Description {{ items[1]}}</li>
-                <!--li>Date {{ items[2]}}</li-->
-            </ul>
+            {% for item in items%}
+            <div class="col-md-6">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.nom}}</h5>
+                    <p class="card-text">{{ item.description}}</p>
+                    <a href="#" class="btn btn-primary">Check Product</a>
+                </div>
+                </div>
+                </div>
+            {% endfor %}
+            
            <p>
         {% endif %}
     </div>

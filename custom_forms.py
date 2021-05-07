@@ -8,9 +8,8 @@ class Newsletter(FlaskForm):
     mydate = DateField(label='Indiquer la date de souscription?', validators=[], format='%Y-%m-%d')
     submit = SubmitField('Submit')
 
-'''
-class Categorie(FlaskForm):
+
+class CategorieForm(FlaskForm):
     name = StringField('Nom', validators=[DataRequired()])
     description = StringField('Description')
     submit = SubmitField('Submit')
-'''

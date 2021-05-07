@@ -1,31 +1,31 @@
 #Importation de la classe Flask du module flask
 from flask import Flask, request, render_template, session, redirect, url_for
 from custom_forms import *
+from flask_sqlalchemy import SQLAlchemy
 
 
 #Instanciation d'un objet de la classe Flask. Cet objet est très utile pour la suite.
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Soroc2022@localhost/emarket'
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Soroc2022@localhost/emarket'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = 'D2FGTHY67UJ_KLIO'
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
-'''
+
 @app.route('/categorie', methods=['GET','POST'])
 def manageCategorie():
-    form = Categorie()
+    form = CategorieForm()
     data=[]
     if form.validate_on_submit():
         name = form.name.data
         description = form.description.data
-        data.append(name)
-        data.append(description)
-        session['data'] = data
+        c_object = Categorie(nom=name, description=description)
+        c_object.saveData()
         return redirect(url_for('manageCategorie'))
+    data = Categorie.getAllData()
+    print(data)
+    return render_template('gestion_stock/categorie/add.html', form=form, items=data)
 
-    return render_template('gestion_stock/categorie/add.html', form=form, items=session.get('data'))
-
-'''
 
 @app.route('/news', methods=['GET','POST'])
 def newletter():
@@ -102,6 +102,19 @@ def accueil():
     return render_template('accueil.html')
 
 
+class Categorie(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key=True)
+    nom = db.Column(db.String(100), unique=True)
+    description = db.Column(db.Text, nullable=True)
+
+    def getAllData():
+        return Categorie.query.all()
+
+    def saveData(self):
+        db.session.add(self)
+        db.session.commit()
+
 '''
 class Produit(db.Model):
     __tablename__ = 'produits'
@@ -110,12 +123,7 @@ class Produit(db.Model):
     description = db.Column(db.Text, nullable=True)
     categorie_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
-class Categorie(db.Model):
-    __tablename__ = 'categories'
-    id = db.Column(db.Integer, primary_key=True)
-    nom = db.Column(db.String(100), unique=True)
-    description = db.Column(db.Text, nullable=True)
-    produits = db.relationship('Produit', backref='produit',uselist=False)
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
