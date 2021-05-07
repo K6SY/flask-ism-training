@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-md-6">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="exampleInputEmail1">{{ form.name.label }}</label>
+                {{ form.name() }}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">{{ form.email.label }}</label>
+                {{ form.email() }}
+            </div>
+
+            
+            {{ form.submit(class='btn btn-primary') }}
+
+            
+        </form>
+    </div>
+    <div class="col-md-6">
+        {% if items %}
+            <ul>
+                <li>Nom {{ items[0]}}</li>
+                <li>Email {{ items[1]}}</li>
+                <!--li>Date {{ items[2]}}</li-->
+            </ul>
+           <p>
+        {% endif %}
+    </div>
+
+{% endblock %}
